@@ -1,4 +1,4 @@
-from ._utils import PROPERTIES_LIST
+from _utils import PROPERTIES_LIST
 
 
 class Cat:
