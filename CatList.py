@@ -1,5 +1,5 @@
 from Cat import Cat
-from _utils import new_file_reader, PROPERTIES_LIST
+from _utils import PROPERTIES_LIST
 import requests
 from bs4 import BeautifulSoup
 
