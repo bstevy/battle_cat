@@ -35,5 +35,5 @@ PROPERTIES_LIST = [
     "Resist_Relic",
     "Shockwave",
     "Critic",
-    "own",
+    "owned",
 ]
