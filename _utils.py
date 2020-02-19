@@ -3,6 +3,7 @@ PROPERTIES_LIST = [
     "Rarity",
     "Name (E)",
     "Name (J)",
+    "Group",
     "Level",
     "PV",
     "KB",
@@ -35,5 +36,5 @@ PROPERTIES_LIST = [
     "Resist_Relic",
     "Shockwave",
     "Critic",
-    "owned",
+    "Owned",
 ]
