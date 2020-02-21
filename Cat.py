@@ -114,6 +114,8 @@ class Cat:
 
         if (Shockwave and Critic) is None:
             return cat_properties
+        else:
+            ratio = (float(Shockwave) + float(Critic))/100
 
         key_list = [key for key in cat_properties.keys() if key.startswith("Strength")]
 
@@ -122,7 +124,7 @@ class Cat:
 
             new_key = "DPS_{}".format(key.split("_")[-1])
 
-            new_value = DPS * (float(value) + float(Shockwave) + float(Critic))
+            new_value = DPS * (float(value) + ratio)
 
             cat_properties[new_key] = str(int(new_value))
 
