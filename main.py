@@ -11,8 +11,8 @@ def rename_cat_file():
     wd = os.path.dirname(os.path.abspath(__file__))
 
     current_file = os.path.join(wd, "neko.csv")
-    old_file = os.path.join(wd, "new_data.csv")
-    new_file = os.path.join(wd, "old_data.csv")
+    new_file = os.path.join(wd, "new_data.csv")
+    old_file = os.path.join(wd, "old_data.csv")
 
     if os.path.isfile(old_file):
         os.remove(old_file)
