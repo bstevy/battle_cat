@@ -13,7 +13,7 @@ class Cat:
         """
         self.ID = ID.zfill(3)
         self.form = form
-        self.properties = properties
+        self.properties = self.compute_dps(properties)
         self.version = change_flag or "no_update"
 
     @classmethod
@@ -93,3 +93,30 @@ class Cat:
                 old_cat.properties[key] = new_value
 
             return old_cat
+
+    @staticmethod
+    def compute_dps(cat_properties):
+        """
+        Add DPS columns when possible
+
+        :param cat_properties: Basic cat properties
+        :return: Cat properties with DPS columns
+        """
+
+        DPS = cat_properties["DPS"]
+        Shockwave = cat_properties.get("Shockwave")
+        Critic = cat_properties.get("Critic")
+
+        if (Shockwave and Critic) is None:
+            return cat_properties
+
+        for key, value in cat_properties.items():
+            if not key.startswith("Strength"):
+                continue
+
+            new_key = "DPS_{}".format(key.split("_")[-1])
+            new_value = float(DPS) * (float(value) + float(Shockwave) + float(Critic))
+
+            cat_properties[new_key] = int(new_value)
+
+        return cat_properties
