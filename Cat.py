@@ -2,14 +2,28 @@ from _utils import PROPERTIES_LIST
 
 
 class Cat:
-    def __init__(self, ID, form, properties, version=None):
-        self.ID = ID
+    def __init__(self, ID, form, properties, change_flag=None):
+        """
+        Init function
+
+        :param ID: The ID of the cat
+        :param form: The form number of the cat
+        :param properties: properties dictionary
+        :param change_flag: Flag to see if there is any change
+        """
+        self.ID = ID.zfill(3)
         self.form = form
         self.properties = properties
-        self.version = version or "no_update"
+        self.version = change_flag or "no_update"
 
     @classmethod
     def from_old_data(cls, in_line):
+        """
+        Create a cat from a CSV
+
+        :param in_line: A line of CSV
+        :return: A cat object
+        """
         in_list = in_line.strip().split("\t")
         ID = in_list.pop(0)
         form = in_list.pop(0)
@@ -20,14 +34,19 @@ class Cat:
             try:
                 properties[form_property] = in_list.pop(0)
             except:
-                print(ID, form)
+                print(ID, form, form_property)
                 continue
 
         return cls(ID, form, properties)
 
     @classmethod
     def from_new_data(cls, in_line):
+        """
+        Create a cat from the website
 
+        :param in_line: A line of the website
+        :return: A cat object
+        """
         cells = in_line.select("td")
 
         index = cells[0].getText()
@@ -57,7 +76,13 @@ class Cat:
 
     @classmethod
     def compare_versions(cls, old_cat, new_cat):
+        """
+        Compare two cats and return a mixed version of two.
 
+        :param old_cat: A cat object to compare
+        :param new_cat: Another cat object
+        :return: A new cat object
+        """
         if not old_cat:
             new_cat.version = "new"
             return new_cat
