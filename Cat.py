@@ -89,6 +89,7 @@ class Cat:
 
         for key, new_value in new_cat.properties.items():
             if old_cat.properties[key] != new_value:
+                print("updated:", new_cat.ID, new_cat.form, key, old_cat.properties[key], new_value)
                 old_cat.version = "updated"
                 old_cat.properties[key] = new_value
 
@@ -103,20 +104,26 @@ class Cat:
         :return: Cat properties with DPS columns
         """
 
-        DPS = cat_properties["DPS"]
+        try:
+            DPS = float(cat_properties["DPS"])
+        except ValueError:
+            return cat_properties
+
         Shockwave = cat_properties.get("Shockwave")
         Critic = cat_properties.get("Critic")
 
         if (Shockwave and Critic) is None:
             return cat_properties
 
-        for key, value in cat_properties.items():
-            if not key.startswith("Strength"):
-                continue
+        key_list = [key for key in cat_properties.keys() if key.startswith("Strength")]
+
+        for key in key_list:
+            value = cat_properties[key]
 
             new_key = "DPS_{}".format(key.split("_")[-1])
-            new_value = float(DPS) * (float(value) + float(Shockwave) + float(Critic))
 
-            cat_properties[new_key] = int(new_value)
+            new_value = DPS * (float(value) + float(Shockwave) + float(Critic))
+
+            cat_properties[new_key] = str(int(new_value))
 
         return cat_properties

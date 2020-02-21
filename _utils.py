@@ -13,8 +13,6 @@ PROPERTIES_LIST = [
     "Target",
     "Attack Frequency",
     "Range",
-    "Min_Range",
-    "Max_Range",
     "Cost",
     "Respawn",
     "Ability",
@@ -48,4 +46,6 @@ PROPERTIES_LIST = [
     "DPS_Alien",
     "DPS_Zombies",
     "DPS_Relic",
+    "Min_Range",
+    "Max_Range",
 ]
