@@ -70,9 +70,29 @@ class Cat:
         properties["Range"] = cells[13].getText()
         properties["Cost"] = cells[14].getText()
         properties["Respawn"], _ = cells[15].get_text(separator=" ").split()
-        properties["Ability"] = "".join(cells[16].get_text(separator=" ").split()[:-10])
+        properties["Ability"] = cls.parse_ability(cells[16])
 
         return cls(ID, form, properties)
+
+    @staticmethod
+    def parse_ability(cells_16):
+        """
+        Parse the content of cells 16 to format the ability info
+
+        :param cells_16: Content of cell 16
+        :return: The formatted ability
+        """
+        text = cells_16.get_text(separator=" ").split('[')[0]
+        text_array = text.split()
+        idx = -1
+        while True:
+            last_value = text_array[idx]
+            try:
+                int(last_value)
+            except ValueError:
+                break
+            idx += -1
+        return "".join(text_array[:idx])
 
     @classmethod
     def compare_versions(cls, old_cat, new_cat):
@@ -88,7 +108,8 @@ class Cat:
             return new_cat
 
         for key, new_value in new_cat.properties.items():
-            if old_cat.properties[key] != new_value:
+
+            if old_cat.properties.get(key) != new_value:
                 print(
                     "updated:",
                     new_cat.ID,
@@ -100,7 +121,7 @@ class Cat:
                 old_cat.version = "updated"
                 old_cat.properties[key] = new_value
 
-            return old_cat
+        return old_cat
 
     @staticmethod
     def compute_dps(cat_properties):
