@@ -89,7 +89,14 @@ class Cat:
 
         for key, new_value in new_cat.properties.items():
             if old_cat.properties[key] != new_value:
-                print("updated:", new_cat.ID, new_cat.form, key, old_cat.properties[key], new_value)
+                print(
+                    "updated:",
+                    new_cat.ID,
+                    new_cat.form,
+                    key,
+                    old_cat.properties[key],
+                    new_value,
+                )
                 old_cat.version = "updated"
                 old_cat.properties[key] = new_value
 
@@ -115,7 +122,7 @@ class Cat:
         if (Shockwave and Critic) is None:
             return cat_properties
         else:
-            ratio = (float(Shockwave) + float(Critic))/100
+            ratio = (float(Shockwave) + float(Critic)) / 100
 
         key_list = [key for key in cat_properties.keys() if key.startswith("Strength")]
 

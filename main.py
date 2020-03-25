@@ -1,5 +1,6 @@
-from CatList import CatList
 import os
+
+from CatList import CatList
 
 
 def rename_cat_file():

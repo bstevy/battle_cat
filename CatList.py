@@ -1,7 +1,8 @@
-from Cat import Cat
-from _utils import PROPERTIES_LIST
 import requests
 from bs4 import BeautifulSoup
+
+from Cat import Cat
+from _utils import PROPERTIES_LIST
 
 
 class CatList:
