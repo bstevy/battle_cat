@@ -105,7 +105,7 @@ class Cat:
         """
 
         try:
-            DPS = float(cat_properties["DPS"])
+            DPS = float(cat_properties["DPS"].replace(",", ""))
         except ValueError:
             return cat_properties
 
