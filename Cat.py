@@ -1,3 +1,5 @@
+from re import compile
+
 from _utils import PROPERTIES_LIST
 
 
@@ -82,17 +84,8 @@ class Cat:
         :param cells_16: Content of cell 16
         :return: The formatted ability
         """
-        text = cells_16.get_text(separator=" ").split('[')[0]
-        text_array = text.split()
-        idx = -1
-        while True:
-            last_value = text_array[idx]
-            try:
-                int(last_value)
-            except ValueError:
-                break
-            idx += -1
-        return "".join(text_array[:idx])
+        split_pattern = compile(r"x?\d{7}\d*")
+        return split_pattern.split(cells_16.get_text())[0]
 
     @classmethod
     def compare_versions(cls, old_cat, new_cat):
