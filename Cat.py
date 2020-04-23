@@ -61,16 +61,16 @@ class Cat:
 
         properties["Name (J)"] = cells[3].getText()
         properties["Level"] = cells[4].getText()
-        properties["PV"] = cells[5].getText()
+        properties["PV"] = cells[5].getText().replace(",", "")
         properties["KB"] = cells[6].getText()
         properties["Movement Speed"] = cells[7].getText()
-        properties["AP"] = cells[8].getText()
-        properties["DPS"] = cells[9].getText()
+        properties["AP"] = cells[8].getText().replace(",", "")
+        properties["DPS"] = cells[9].getText().replace(",", "")
         properties["Target"] = cells[10].getText()
         properties["Attack Frequency"] = cells[11].getText()
 
         properties["Range"] = cells[13].getText()
-        properties["Cost"] = cells[14].getText()
+        properties["Cost"] = cells[14].getText().replace(",", "")
         properties["Respawn"], _ = cells[15].get_text(separator=" ").split()
         properties["Ability"] = cls.parse_ability(cells[16])
 
@@ -128,17 +128,19 @@ class Cat:
         try:
             DPS = float(cat_properties["DPS"].replace(",", ""))
         except ValueError:
+            print(f"Skip DPS for {cat_properties.get('Name (E)')}")
             return cat_properties
+
 
         Shockwave = cat_properties.get("Shockwave")
         Critic = cat_properties.get("Critic")
 
-        if (Shockwave and Critic) is None:
-            return cat_properties
-        else:
+        try:
             ratio = (float(Shockwave) + float(Critic)) / 100
+        except (ValueError, TypeError):
+            return cat_properties
 
-        key_list = [key for key in cat_properties.keys() if key.startswith("Strength")]
+        key_list = (key for key in cat_properties.keys() if key.startswith("Strength"))
 
         for key in key_list:
             value = cat_properties[key]
