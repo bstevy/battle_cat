@@ -69,7 +69,7 @@ class Cat:
         properties["Target"] = cells[10].getText()
         properties["Attack Frequency"] = cells[11].getText()
 
-        properties["Range"] = cells[13].getText()
+        properties["Range"] = cells[13].getText().getText()
         properties["Cost"] = cells[14].getText().replace(",", "")
         properties["Respawn"], _ = cells[15].get_text(separator=" ").split()
         properties["Ability"] = cls.parse_ability(cells[16])
